@@ -2,13 +2,16 @@
 # vi: set ft=ruby :
 
 require 'rbconfig'
+require 'fileutils'
 IS_WINDOWS = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/) ? true : false
 
 # hostmaster plugin
 require File.dirname(__FILE__) + "/hostmaster/hostmaster.rb"
 
-Vagrant::Config.run do |config|
+# copy dist-files that we can customize later
+require File.dirname(__FILE__) + "/config/dist/distfiles.copy.rb"
 
+Vagrant::Config.run do |config|
   # define some colors for our output
   def colorize(text, color_code) "#{color_code}#{text}\033[0m" end
   def red(text); colorize(text, "\033[31m"); end
@@ -22,20 +25,17 @@ Vagrant::Config.run do |config|
   config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
   config.vm.share_folder "v-root", "/vagrant", "." , :nfs => true
 
-  # additional shares
-  config.vm.share_folder "antidoping.lo", "/antidoping.lo", "/Users/chrigu/Sites/liip/antidoping", :nfs => true
-  config.vm.share_folder "chatrooms.lo", "/chatrooms.lo", "/Users/chrigu/Sites/private/Chatrooms", :nfs => true
-  config.vm.share_folder "friend-battle.lo", "/friend-battle.lo", "/Users/chrigu/Sites/liip/friend-battle", :nfs => true
+  # additional folders
+  require File.dirname(__FILE__) + "/config/sharedfolders.rb"
 
   # the ip address where the vm can be accessed from the host
   config.vm.network :hostonly, "100.100.100.100"
-
   config.vm.forward_port 22, 2222
-  config.vm.forward_port 80, 8080
+  config.vm.forward_port 80, 8080 # http
 
   # hosts
   config.vm.host_name = "vagrant.lo"
-  config.hosts.aliases = %w(antidoping.lo chrigu.lo friend-battle.lo)
+  require File.dirname(__FILE__) + "/config/hosts.rb"
 
   # chef solo
   config.vm.provision :chef_solo do |chef|
@@ -46,7 +46,6 @@ Vagrant::Config.run do |config|
     chef.add_recipe("common")
     chef.add_recipe("php")
     chef.add_recipe("node")
-
   end
   
 end

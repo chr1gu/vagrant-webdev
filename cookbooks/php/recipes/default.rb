@@ -17,6 +17,7 @@ php5-xdebug
 php5-xsl
 php-pear
 sqlite3
+phpmyadmin
 ).each { | pkg | package pkg }
 
 
@@ -38,7 +39,12 @@ template "/etc/apache2/sites-enabled/vhost.conf" do
   user "root"
   mode "0644"
   source "vhost.conf.erb"
-  notifies :reload, "service[apache2]"
+end
+
+template "/etc/apache2/apache2.conf" do
+  user "root"
+  mode "0644"
+  source "apache2.conf.erb"
 end
 
 template "/etc/php5/apache2/php.ini" do
