@@ -2,6 +2,7 @@
 config/hosts.rb
 config/vhost.conf.erb
 config/sharedfolders.rb
+config/apache2.conf.erb
 cookbooks/php/templates/default/apache2.conf.erb
 cookbooks/php/templates/default/vhost.conf.erb
 log
