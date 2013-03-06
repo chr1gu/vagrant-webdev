@@ -2,15 +2,13 @@
 User vagrant
 Group vagrant
 
-Alias /phpmyadmin /usr/share/phpmyadmin
-
 <VirtualHost *:80>
   Servername vagrant.lo
   DocumentRoot /vagrant/public
   Alias /phpmyadmin /usr/share/phpmyadmin
   CustomLog /vagrant/log/vagrant.access.log common
   ErrorLog /vagrant/log/vagrant.error.log
-  php_value error_log /vagrant/log/antidoping.php.error.log
+  php_value error_log /vagrant/log/vagrant.php.error.log
   <Directory "/vagrant/public">
     AllowOverride All
   </Directory>

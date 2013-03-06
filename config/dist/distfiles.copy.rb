@@ -1,3 +1,7 @@
+# create log folder if it does not exist
+logdir = File.dirname(__FILE__) + "/../../log";
+Dir.mkdir(logdir) unless File.exists?(logdir);
+
 # create files if they do not exist (the first time)
 if !File.exists? File.dirname(__FILE__) + "/../hosts.rb"
   FileUtils.cp(File.dirname(__FILE__) + "/hosts.rb", File.dirname(__FILE__) + "/../hosts.rb");
