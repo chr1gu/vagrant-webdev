@@ -8,6 +8,7 @@ Features
 * Ubuntu 12.04
 * Apache2
 * PHP 5.3
+* PHPUnit
 * MySQL (inkl. Phpmyadmin)
 * Postgresql
 * NodeJS
