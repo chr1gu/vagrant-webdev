@@ -13,8 +13,8 @@ Features
 * NodeJS
 * NPM
 
-Setup
------
+Get started
+-----------
 1. Install [Vagrant](http://www.vagrantup.com/)
 2. Clone repository
 3. $ vagrant up
