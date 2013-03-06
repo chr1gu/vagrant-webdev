@@ -23,6 +23,17 @@ Get started
 
 FAQ
 ---
+
+**How to add a new project: example.lo**
+
+1. Add the host example.lo in **config/hosts.rb**
+2. Mount your project folder in **config/sharedfolders.rb**
+3. Add a new vhost for example.lo in **config/vhost.conf.erb**
+
+    ____________________________________________________________
+    If you can't find the files mentioned above you have to run 'vagrant up' first
+    and the provisioner will then create the template files
+
 **NFS mounting failed:**
 
     Mounting NFS shared folders failed. This is most often caused by the NFS
